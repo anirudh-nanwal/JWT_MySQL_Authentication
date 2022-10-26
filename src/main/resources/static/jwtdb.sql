@@ -5,21 +5,19 @@ drop schema if exists `jwt_auth`;
 create schema `jwt_auth`;
 
 create table `jwt_auth`.`role`(
-	`role_id` int not null primary key AUTO_INCREMENT,
-    `role_name` varchar(25) not null,
+    `role_name` varchar(25) not null primary key,
     `role_description` varchar(100) not null
 );
 create table `jwt_auth`.`user`(
-	`user_id` int not null primary key AUTO_INCREMENT,
-	`user_name` varchar(100) not null,
+	`user_name` varchar(100) not null primary key,
     `user_first_name` varchar(100),
     `user_last_name` varchar(100),
     `user_password` varchar(100) not null
 );
 
 create table `jwt_auth`.`user_role` (
-	`user_id` int not null,
-    `role_id` int not null,
-    foreign key (`user_id`) references `jwt_auth`.`user`(`user_id`),
-    foreign key (`role_id`) references `jwt_auth`.`role`(`role_id`)
+	`user_name` int not null,
+    `role_name` int not null,
+    foreign key (`user_name`) references `jwt_auth`.`user`(`user_name`),
+    foreign key (`role_name`) references `jwt_auth`.`role`(`role_name`)
 );
