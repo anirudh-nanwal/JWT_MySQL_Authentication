@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "fa088183-75d7-4222-8736-39286ea247c9",
+		"name": "JWT Auth",
+		"description": "This is a simple collection to test the jwt_auth project which contains APIs' related to authentication and role based authorization. The Git repository for the project is:\n\n_____________________________",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20861760"
+	},
+	"item": [
+		{
+			"name": "PostMapping",
+			"item": [
+				{
+					"name": "Add new User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"nanoas\",\r\n    \"userFirstName\": \"Anirudh\",\r\n    \"userLastName\": \"Nanwalad\",\r\n    \"userPassword\": \"Nano123ads\",\r\n    \"roles\": [\r\n        {\r\n            \"roleName\": \"User\",\r\n            \"roleDescription\": \"Default role for newly created User\"\r\n        },\r\n        {\r\n            \"roleName\": \"Admin\",\r\n            \"roleDescription\": \"Admin Role\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/jwt/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"jwt",
+								"user"
+							]
+						},
+						"description": "Post API to add new User with role."
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roleName\": \"user\",\r\n    \"roleDescription\": \"Default role for new user\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/jwt/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"jwt",
+								"role"
+							]
+						},
+						"description": "Post API to add new Role."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate JWT token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var xsrfToken = postman.getResponseCookie(\"XSRF-TOKEN\");\r",
+									"if(!xsrfToken) {\r",
+									"    console.log(\"xsrf token is null\");\r",
+									"}\r",
+									"else {\r",
+									"    postman.setEnvironmentVariable(\"xsrf-token\", xsrfToken.value);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"nano1\",\r\n    \"userPassword\": \"asdf1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/jwt/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"jwt",
+								"authenticate"
+							]
+						},
+						"description": "Generate JWT token in order to use other APIs."
+					},
+					"response": [
+						{
+							"name": "Generate JWT token User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"nano1\",\r\n    \"userPassword\": \"asdf1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9090/jwt/authenticate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"jwt",
+										"authenticate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 21:07:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"userName\": \"nano1\",\n        \"userFirstName\": \"Anirudh1\",\n        \"userLastName\": \"Nanwal1\",\n        \"userPassword\": \"$2a$10$cM7zhdpoLqjLHuQY8OfDE.tNVdakbM5zhpO4WX.MAUyLPb7OROWW6\",\n        \"roles\": [\n            {\n                \"roleName\": \"User\",\n                \"roleDescription\": \"Default role for newly created User\"\n            }\n        ]\n    },\n    \"jwtToken\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW5vMSIsImV4cCI6MTY2NjU3NzI2NSwiaWF0IjoxNjY2NTU5MjY1fQ.Sx2whkEzIMgKCO8BkgCinNAwetVIV5d0QyazZU6dc79kvT6wVQ7Oi20G9ypUH5kcLRWifmQvtgZFNwkI1yOacQ\"\n}"
+						},
+						{
+							"name": "Generate JWT token Admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"nano\",\r\n    \"userPassword\": \"asdf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9090/jwt/authenticate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"jwt",
+										"authenticate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 21:08:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"userName\": \"nano\",\n        \"userFirstName\": \"Anirudh\",\n        \"userLastName\": \"Nanwal\",\n        \"userPassword\": \"$2a$10$2tHCEvGXkvnvAflL5k2MjeHFDmY7b/vFceUG1RNfU5auA65A/YgBe\",\n        \"roles\": [\n            {\n                \"roleName\": \"Admin\",\n                \"roleDescription\": \"Admin Role\"\n            }\n        ]\n    },\n    \"jwtToken\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW5vIiwiZXhwIjoxNjY2NTc3Mjg4LCJpYXQiOjE2NjY1NTkyODh9.UoDj1oT8vs7A4V4xTlVv1UfEc_QuL3Q2_iGFPsZlBEMukVfwA0DGdOj-zQRN_Y3cld9plrAjKTXRXd00AMh8kQ\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Contains all the Rest APIs' that adds new data, or updates the existing one."
+		},
+		{
+			"name": "GetMapping",
+			"item": [
+				{
+					"name": "Get Admin data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var xsrfToken = postman.getResponseCookie(\"XSRF-TOKEN\");\r",
+									"if(!xsrfToken) {\r",
+									"    console.log(\"xsrf token is null\");\r",
+									"}\r",
+									"else {\r",
+									"    postman.setEnvironmentVariable(\"xsrf-token\", xsrfToken.value);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW5vMSIsImV4cCI6MTY2NjgxMjEwNCwiaWF0IjoxNjY2Nzk0MTA0fQ.mbl1EV6yQB5IG2iIxhJF5ZItlmzWLQbeLakeeUghjT-jLcu568Z9sNa7_EUUgyd0YAKeVl8XgXyBpqqO6NrWrg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/jwt/forAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"jwt",
+								"forAdmin"
+							]
+						},
+						"description": "Get API to fetch Admin data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var xsrfToken = postman.getResponseCookie(\"XSRF-TOKEN\");\r",
+									"if(!xsrfToken) {\r",
+									"    console.log(\"xsrf token is null\");\r",
+									"}\r",
+									"else {\r",
+									"    postman.setEnvironmentVariable(\"xsrf-token\", xsrfToken.value);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW5vMSIsImV4cCI6MTY2NjgxMjEwNCwiaWF0IjoxNjY2Nzk0MTA0fQ.mbl1EV6yQB5IG2iIxhJF5ZItlmzWLQbeLakeeUghjT-jLcu568Z9sNa7_EUUgyd0YAKeVl8XgXyBpqqO6NrWrg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/jwt/forUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"jwt",
+								"forUser"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get API to fetch User data."
+					},
+					"response": []
+				}
+			],
+			"description": "Contains all the Rest APIs' related to fetching data."
+		}
+	]
+}
